@@ -139,3 +139,19 @@ After installing ScnSocialAuth, copy
 Also copy
 `./vendor/socalnick/scn-social-auth/config/scn-social-auth.local.php.dist` to
 `./config/autoload/scn-social-auth.local.php` and change the values as desired.
+
+------
+"repositories": [
+	    {
+	        "type":"vcs",
+	        "url":"https://github.com/Voodoo773/ScnSocialAuth"
+	    }
+    ];
+------
+"require": {
+    "socalnick/scn-social-auth": "dev-lang",
+    }
+
+	    
+	    
+	    
