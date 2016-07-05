@@ -60,7 +60,7 @@ class UserController extends AbstractActionController
 
         // If user is not logged in, redirect to login page
         if (!$authService->hasIdentity()) {
-            return $this->redirect()->toRoute('zfcuser/login');
+            return $this->redirect()->toRoute('zfcuser/login', ['lang' => $this->lang()]);
         }
 
         $hybridAuth = $this->getHybridAuth();
@@ -69,7 +69,7 @@ class UserController extends AbstractActionController
         if (!$adapter->isUserConnected()) {
             $this->flashMessenger()->setNamespace('zfcuser-index')->addMessage($this->failedAddProviderMessage);
 
-            return $this->redirect()->toRoute('zfcuser');
+            return $this->redirect()->toRoute('zfcuser', ['lang' => $this->lang()]);
         }
 
         $localUser = $authService->getIdentity();
@@ -99,7 +99,7 @@ class UserController extends AbstractActionController
         if ($this->getServiceLocator()->get('zfcuser_module_options')->getUseRedirectParameterIfPresent() && $this->getRequest()->getQuery()->get('redirect')) {
             $query = array('redirect' => $this->getRequest()->getQuery()->get('redirect'));
         }
-        $redirectUrl = $this->url()->fromRoute('scn-social-auth-user/authenticate/provider', array('provider' => $provider), array('query' => $query));
+        $redirectUrl = $this->url()->fromRoute('scn-social-auth-user/authenticate/provider', ['lang' => $this->lang(), 'provider' => $provider], array('query' => $query));
 
         $adapter = $hybridAuth->authenticate(
             $provider,
@@ -149,7 +149,7 @@ class UserController extends AbstractActionController
 
         if (!$this->hybridAuth) {
             // This is likely user that cancelled login...
-            return $this->redirect()->toRoute('zfcuser/login');
+            return $this->redirect()->toRoute('zfcuser/login', ['lang' => $this->lang()]);
         }
 
         // For provider authentication, change the auth adapter in the ZfcUser Controller Plugin
