@@ -51,7 +51,7 @@ class RedirectCallback
     {
         $routeMatch = $this->application->getMvcEvent()->getRouteMatch();
         $redirect = $this->getRedirect($routeMatch->getMatchedRouteName(), $this->getRedirectRouteFromRequest());
-
+        
         $response = $this->application->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $redirect);
         $response->setStatusCode(302);
@@ -110,6 +110,9 @@ class RedirectCallback
         if (!$useRedirect || !$routeExists) {
             $redirect = false;
         }
+        
+        $RouteMatch = $this->application->getMvcEvent()->getRouteMatch();
+        $lang = $RouteMatch->getParam('lang');
 
         switch ($currentRoute) {
             case 'zfcuser/login':
@@ -119,16 +122,16 @@ class RedirectCallback
             case 'scn-social-auth-user/add-provider/provider':
                 $route = ($redirect) ?: $this->options->getLoginRedirectRoute();
 
-                return $this->router->assemble(array(), array('name' => $route));
+                return $this->router->assemble(array('lang' => $lang), array('name' => $route));
                 break;
             case 'zfcuser/logout':
             case 'scn-social-auth-user/logout':
                 $route = ($redirect) ?: $this->options->getLogoutRedirectRoute();
 
-                return $this->router->assemble(array(), array('name' => $route));
+                return $this->router->assemble(array('lang' => $lang), array('name' => $route));
                 break;
             default:
-                return $this->router->assemble(array(), array('name' => 'zfcuser'));
+                return $this->router->assemble(array('lang' => $lang), array('name' => 'zfcuser'));
         }
     }
 }
