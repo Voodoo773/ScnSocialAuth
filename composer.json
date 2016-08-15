@@ -11,7 +11,7 @@
         {
             "type":"vcs",
             "url":"https://github.com/Voodoo773/ZfcUser"
-        },
+        }
     ],
     "homepage": "https://github.com/SocalNick/ScnSocialAuth",
     "authors": [
